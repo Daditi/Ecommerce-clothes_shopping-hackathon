@@ -12,16 +12,15 @@ wl=mydb.wishlist
 orders=mydb.Orders
 stat=mydb.Status
 
-record={'name':'aditi'}
-
 app=Flask(__name__)
 app.secret_key="hello"
 app.permanent_session_lifetime = timedelta(days=366)
 #######  add those line here
 
-@app.route('/')
+@app.route('/home')
 def home():
-    return render_template('main.html')
+    email=session['email']
+    return render_template('main.html',email=email)
     #return render_template('base_temp.html')
 
 @app.route('/create',methods=['POST'])
@@ -293,7 +292,7 @@ def wishlistroller():
         return render_template('wishlist.html',l=l,email=email)
 
 
-@app.route('/signin')
+@app.route('/')
 def signin():
     return render_template('signin.html')
 

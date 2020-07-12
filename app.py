@@ -317,7 +317,6 @@ def signup():
 
 @app.route('/signupform',methods=['POST','GET'])
 def signupform():
-    email=session['email']
     fname=request.form['fname']
     lname=request.form['lname']
     email=request.form['email']
@@ -378,22 +377,22 @@ def adminorders():
     order=[i for i in orders.find()]
     return render_template('orders.html',orders=order,email=email)
 
-@app.route('/accept+<email>+<price>')
-def accept(email,price):
-    orders.update_one({'email':email},{'$set':{'status':'Order Accepted'}})
+@app.route('/accept+<email>+<price>+<image>')
+def accept(email,price,image):
+    orders.update_one({'email':email,'price':price,'image':image},{'$set':{'status':'Order Accepted'}})
     status='Order Accepted'
     
     return render_template('orders.html',status=status,email=email)
 
-@app.route('/dispatch+<email>+<price>')
-def dispatch(email,price):
-    orders.update_one({'email':email},{'$set':{'status':'Dispatched'}})
+@app.route('/dispatch+<email>+<price>+<image>')
+def dispatch(email,price,image):
+    orders.update_one({'email':email,'price':price,'image':image},{'$set':{'status':'Dispatched'}})
     status='Dispatched'
     return render_template('orders.html',status=status,email=email)
 
-@app.route('/deliver+<email>+<price>')
-def deliver(email,price):
-    orders.update_one({'email':email},{'$set':{'status':'Delivered'}})
+@app.route('/deliver+<email>+<price>+<image>')
+def deliver(email,price,image):
+    orders.update_one({'email':email,'price':price,'image':image},{'$set':{'status':'Delivered'}})
     status='Delivered'
     return render_template('orders.html',status=status,email=email)
 
@@ -407,3 +406,6 @@ def myorders():
 
 if __name__ == "__main__":
     app.run(debug=True)    
+
+
+    git remote add origin https://github.com/Daditi/Ecommerce-clothes_shopping-hackathon.git
